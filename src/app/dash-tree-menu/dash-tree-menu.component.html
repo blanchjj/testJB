@@ -1,0 +1,74 @@
+<a  (click)="childModalAdd.show()">A</a>
+<a  (click)="childModalDel.show()">D</a>
+
+<div bsModal #childModalAdd="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Classification</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+      <form>
+      <div class="form-group">
+        <label>New Description</label>
+        <input [(ngModel)]="newProductClassifDesc" type="text" class="form-control" name="newProductClassifDesc" placeholder="">
+      </div>
+
+      <div class="form-group">
+        <label>New Display PATH</label>
+        <input [(ngModel)]="newDisplayPathName" type="text" class="form-control" name="newDisplayPathName" placeholder="">
+      </div>
+
+      <div class="radio">
+        <label>
+          <input type="radio" value="under" name="optionsRadios" checked="true" [(ngModel)]="underInd" >
+          Under
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" value="level" name="optionsRadios" [(ngModel)]="underInd" >
+          Same level
+        </label>
+      </div>
+        Current node, ID: {{productClassifId}}, PID:{{parentProductClassifId}}, DESC: {{productClassifDesc}}, PATH: {{displayPathName}}
+      <button type="submit" class="btn btn-default" (click)="add()">ADD</button>
+      <button type="submit" class="btn btn-default" (click)="cancel()">CANCEL</button>
+
+      </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #childModalDel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Delete Classification</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+      <form>
+      
+        Current node, ID: {{productClassifId}}, PID:{{parentProductClassifId}}, DESC: {{productClassifDesc}}, PATH: {{displayPathName}}
+      <button type="submit" class="btn btn-default" (click)="delete()">CONFIRM DEL</button>
+      <button type="submit" class="btn btn-default" (click)="cancel()">CANCEL</button>
+
+      </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>

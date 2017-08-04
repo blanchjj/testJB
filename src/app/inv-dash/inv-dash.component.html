@@ -1,0 +1,26 @@
+      
+<div class="split-example" style="height: 900px;">
+<split direction="vertical">
+
+      <split-area [size]="12">
+        <app-inv-dash-param></app-inv-dash-param>
+      </split-area>
+
+      <split-area [size]="68">
+        <split direction="horizontal">
+            <split-area [size]="20">
+                <app-inv-dash-tree></app-inv-dash-tree>
+            </split-area>
+            <split-area [size]="80">
+                <app-inv-dash-inv></app-inv-dash-inv>
+            </split-area>
+        </split>
+
+        </split-area>
+
+          <split-area [size]="20">
+            <app-inv-dash-message></app-inv-dash-message>
+          </split-area>
+
+      </split>
+</div>
