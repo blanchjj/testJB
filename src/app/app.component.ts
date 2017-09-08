@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 import {MessageService} from './message.service';
-import {ClassTreeService} from './class-tree.service';
-import {InvDashInvService} from './inv-dash-inv.service';
+import {ClassTreeService} from './inv-dash/class-tree.service';
+import {InvDashInvService} from './inv-dash-inv/inv-dash-inv.service';
 
 import { InvDashComponent } from './inv-dash/inv-dash.component';
 import { OrderDashComponent } from './order-dash/order-dash.component';
@@ -11,6 +11,7 @@ import { InvDashParamComponent } from './inv-dash-param/inv-dash-param.component
 import { InvDashInvComponent } from './inv-dash-inv/inv-dash-inv.component';
 import { InvDashMessageComponent } from './inv-dash-message/inv-dash-message.component';
 import { CheckBoxComponent } from './checkbox/checkbox.component';
+import { DatepickerComponent } from './datepicker/datepicker.component';
 
 @Component({
   selector: 'app-root',
@@ -27,5 +28,6 @@ export class AppComponent {
   @Input() invDashInvComponent:InvDashInvComponent;
   @Input() invDashMessageComponent:InvDashMessageComponent;
   @Input() checkBoxComponent:CheckBoxComponent;
+  @Input() datepickerComponent:DatepickerComponent;
 
 }

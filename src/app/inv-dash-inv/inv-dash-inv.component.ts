@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GridOptions} from 'ag-grid';
 
-import {InvDashInvService} from '../inv-dash-inv.service';
+import {InvDashInvService} from './inv-dash-inv.service';
 import { CheckBoxComponent } from '../checkbox/checkbox.component';
 
 @Component({
@@ -39,6 +39,15 @@ export class InvDashInvComponent implements OnInit {
                     
                     cellRendererFramework: CheckBoxComponent},
 
+                {headerName: 'PRICING',
+                    children: [
+                        {headerName: "Type", field: "pricingType", width: 70, suppressFilter: true},
+                        {headerName: "Link", field: "link", width: 70, suppressFilter: true},
+                        {headerName: "Spread", field: "spread", width: 70, columnGroupShow: 'open', suppressFilter: true},
+                        {headerName: "Type", field: "spreadType", width: 70, columnGroupShow: 'open', suppressFilter: true}
+                    ] 
+                },
+
                 {headerName: 'IA PRICE',
                 
                     children: [
@@ -50,16 +59,7 @@ export class InvDashInvComponent implements OnInit {
                     ] 
                 },
 
-               {headerName: 'Client PRICE',
-                
-                    children: [
-                        {headerName: "Bid Price", field: "cltBidPrice", width: 70, suppressFilter: true},
-                        {headerName: "Bid Yield", field: "cltBidYield", width: 70, suppressFilter: true},
-                        {headerName: "Ofr Price", field: "cltOfferPrice", width: 70, columnGroupShow: 'open', suppressFilter: true},
-                        {headerName: "Ofr Yield", field: "cltOfferYield", width: 70, columnGroupShow: 'open', suppressFilter: true}
-
-                    ] 
-                },
+               
                 {headerName: 'POS',
                 
                     children: [

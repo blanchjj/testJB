@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule }     from './app-routing.module';
 
 import { MessageService } from './message.service';
+import { InvDashParamService } from './inv-dash/inv-dash-param.service';
 import { InvDashComponent } from './inv-dash/inv-dash.component';
 import { OrderDashComponent } from './order-dash/order-dash.component';
 import { InvDashTreeComponent } from './inv-dash-tree/inv-dash-tree.component';
@@ -28,6 +29,7 @@ import { InvDashInvComponent } from './inv-dash-inv/inv-dash-inv.component';
 import { InvDashMessageComponent } from './inv-dash-message/inv-dash-message.component';
 
 import { CheckBoxComponent } from './checkbox/checkbox.component';
+import { DatepickerComponent } from './datepicker/datepicker.component';
 import { DashTreeMenuComponent } from './dash-tree-menu/dash-tree-menu.component';
 import { InvDashAddNodeComponent } from './inv-dash-add-node/inv-dash-add-node.component';
 
@@ -42,6 +44,7 @@ import { InvDashAddNodeComponent } from './inv-dash-add-node/inv-dash-add-node.c
     InvDashInvComponent,
     InvDashMessageComponent,
     CheckBoxComponent,
+    DatepickerComponent,
     DashTreeMenuComponent,
     InvDashAddNodeComponent
   ],
@@ -58,7 +61,7 @@ import { InvDashAddNodeComponent } from './inv-dash-add-node/inv-dash-add-node.c
     ButtonsModule.forRoot(),
     ModalModule.forRoot()
   ],
-  providers: [MessageService, {provide: APP_BASE_HREF, useValue: '/Icarius/'} ],
+  providers: [InvDashParamService, MessageService, {provide: APP_BASE_HREF, useValue: '/Icarius/'} ],
   bootstrap: [AppComponent],
   entryComponents: [InvDashAddNodeComponent]
 })

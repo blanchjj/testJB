@@ -4,8 +4,10 @@ import {ICellRendererAngularComp, ICellEditorAngularComp} from "ag-grid-angular/
 import { CheckBoxComponent } from '../checkbox/checkbox.component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-import { ClassTreeService } from '../class-tree.service';
-import { ClassTreeNode} from '../class-tree-node';
+import { ClassTreeService } from '../inv-dash/class-tree.service';
+import { ClassTreeNode} from '../model/class-tree-node';
+import { MessageService } from '../message.service';
+
 
 @Component({
   selector: 'app-dash-tree-menu',
@@ -26,7 +28,7 @@ export class DashTreeMenuComponent implements  ICellRendererAngularComp {
   public newProductClassifDesc: string;
   public newDisplayPathName: string;
 
-  constructor(private classTreeService: ClassTreeService) {};
+  constructor(private classTreeService: ClassTreeService, private messageService: MessageService) {};
 
 
   // Open the ADD modal window
@@ -59,11 +61,10 @@ export class DashTreeMenuComponent implements  ICellRendererAngularComp {
 
       this.classTreeService.delete(this.productClassifId)
             .then( classTreeNode => {
-                console.log(classTreeNode);
-                //this.getClassTreeData();
+                 console.log("message created: PRODUCT_CLASSIF_CHANGED");
+                 this.messageService.sendMessage('PRODUCT_CLASSIF_CHANGED');
+                 this.childModalDel.hide();
             });
-
-      this.childModalDel.hide();
     }
 
     // Add a Node
@@ -86,13 +87,14 @@ export class DashTreeMenuComponent implements  ICellRendererAngularComp {
 
         this.classTreeService.add(cts)
             .then( classTreeNode => {
-                console.log(classTreeNode);
-                //this.getClassTreeData();
+                //console.log(classTreeNode);
+                console.log("message created: PRODUCT_CLASSIF_CHANGED");
+                this.messageService.sendMessage('PRODUCT_CLASSIF_CHANGED');
+                this.childModalAdd.hide();
             });
-
-        this.childModalAdd.hide();
     }
 
+    
     cancel():void {
       this.childModalAdd.hide();
       this.childModalDel.hide();

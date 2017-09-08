@@ -4,31 +4,48 @@ import {GridOptions} from 'ag-grid';
 import { CheckBoxComponent } from '../checkbox/checkbox.component';
 import { DashTreeMenuComponent } from '../dash-tree-menu/dash-tree-menu.component';
 
-import { ClassTreeService } from '../class-tree.service';
-import { ClassTreeNode} from '../class-tree-node';
+import { ClassTreeService } from '../inv-dash/class-tree.service';
+import { ClassTreeNode} from '../model/class-tree-node';
+
+import { Subscription } from 'rxjs/Subscription';
+import { MessageService } from '../message.service';
 
 @Component({
   moduleId: module.id,
   selector: 'app-inv-dash-tree',
   template: `
+    <button type="submit" (click)="onClick()" class="btn btn-default">SaveSelected</button>
     <ag-grid-angular #invDashTree style="width: 100%; height: 94%;"  class="ag-fresh"
-                 [gridOptions]="gridOptions" 
+                 [gridOptions]="gridOptions"
                 >
     </ag-grid-angular>
   `
 })
 export class InvDashTreeComponent implements OnInit {
     public gridOptions: GridOptions;
+    subscription: Subscription;
 
-    constructor(private classTreeService: ClassTreeService) 
+    public allo: string = "asasas";
+    
+
+    constructor(private classTreeService: ClassTreeService, public messageService: MessageService) 
     {
+
+        this.subscription = this.messageService.getMessage().subscribe(message => { this.processMessage(message); });
+
         this.gridOptions = <GridOptions>{};
         this.gridOptions.enableColResize = true;
         this.gridOptions.rowSelection = 'multiple';
         this.gridOptions.groupSelectsChildren = true;
         this.gridOptions.suppressRowClickSelection = true;
         this.gridOptions.getNodeChildDetails = this.getNodeChildDetail;
-        //this.gridOptions.rowData = this.productTreeService.get();
+        //this.gridOptions.onColumnGroupOpened = this.groupOpened;
+
+        //this.gridOptions.api.addEventListener('columnGroupOpened' , (event) => {
+        //    console.log(event);
+        //    console.log(this.allo);
+        //    this.messageService.sendMessage('INV-DASH-SPLIT-RESIZE');
+        //})
 
         this.gridOptions.columnDefs = [
             
@@ -63,45 +80,65 @@ export class InvDashTreeComponent implements OnInit {
         ];
     }
 
-    delete():void {
+    //groupOpened(event) {
+    //    console.log(event);
+    //    console.log(this.allo);
+    //    this.messageService.sendMessage('INV-DASH-SPLIT-RESIZE');
+    //}
 
-        var id:number = 20;
-
-        this.classTreeService.delete(id)
-            .then( classTreeNode => {
-                console.log(classTreeNode);
-                this.getClassTreeData();
-            });
+    onClick() {
+        console.log('Try to get selected node');
+        console.log(this.gridOptions.api.getSelectedNodes());
     }
 
-    add():void {
-
-        var cts = new ClassTreeNode();
-        cts.id = null;
-        cts.productClassifId = null;
-        cts.parentProductClassifId = 7;
-        cts.parentSameCharacteristicInd = true;
-        cts.displayPathName = null;
-        cts.displaySequence = null;
-        cts.bidAccessInd = false;
-        cts.offrAccessInd = false;
-        cts.productClassifDesc = "NAT"
-        cts.parent = false;
-        cts.level = null;
-        cts.checked = false;
-
-        this.classTreeService.add(cts)
-            .then( classTreeNode => {
-                console.log(classTreeNode);
-                this.getClassTreeData();
-            });
+    processMessage(message) {
+        console.log(message.text);
+        if (message.text == 'PRODUCT_CLASSIF_CHANGED') {
+            console.log("Message received: PRODUCT_CLASSIF_CHANGED");
+            this.getClassTreeData();
+        }
     }
+
+
+    //delete():void {
+
+    //    var id:number = 20;
+
+    //    this.classTreeService.delete(id)
+    //        .then( classTreeNode => {
+                //console.log(classTreeNode);
+   //             this.getClassTreeData();
+   //         });
+   // }
+
+    //add():void {
+
+    //    var cts = new ClassTreeNode();
+     //   cts.id = null;
+     //   cts.productClassifId = null;
+     //   cts.parentProductClassifId = 7;
+      //  cts.parentSameCharacteristicInd = true;
+    //    cts.displayPathName = null;
+    //    cts.displaySequence = null;
+    //    cts.bidAccessInd = false;
+    //    cts.offrAccessInd = false;
+    //    cts.productClassifDesc = "NAT"
+    //    cts.parent = false;
+    //    cts.level = null;
+     //   cts.checked = false;
+
+     //   this.classTreeService.add(cts)
+     //       .then( classTreeNode => {
+                //console.log(classTreeNode);
+     //           this.getClassTreeData();
+    //        });
+    //}
 
     getClassTreeData():void {
         this.classTreeService
             .get()
             .then(response => {
-                    console.log('xxxx: ', response);
+                    //console.log('xxxx: ', response);
                     this.gridOptions.api.setRowData(response)} )
                     //this.gridOptions.api.setRowData(this.classTreeService.getTree())} )
     }
@@ -109,13 +146,13 @@ export class InvDashTreeComponent implements OnInit {
     onGridReady(params) {
         params.api.sizeColumnsToFit();
 
-        console.log('XYZ Grid ready');
+        //console.log('XYZ Grid ready');
     }
 
     ngOnInit(): void {
-        console.log('ABC Grid Init start ');
+        //console.log('ABC Grid Init start ');
         this.getClassTreeData();
-        console.log('ABC Grid Init END ');
+        //console.log('ABC Grid Init END ');
     }
 
     getNodeChildDetail(node):any {
